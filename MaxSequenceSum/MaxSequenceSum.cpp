@@ -55,8 +55,7 @@ int main()
     return 0;
 }
 
-
-namespace N2
+namespace N2_Algorithm
 {
 	int main()
 	{
