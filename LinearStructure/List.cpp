@@ -91,7 +91,6 @@ int List<T, n>::Length()
 	return this->length;
 }
 
-
 template<typename U, int n>
 ostream& operator<<(ostream& output, List<U, n> L)
 {
