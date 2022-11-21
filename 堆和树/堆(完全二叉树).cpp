@@ -15,6 +15,7 @@ public:
 	{
 		size = 0;
 	}
+
 	heap(vector<T> nums)
 	{
 		// 99 5 36 7 22 17 46 12 2 19 25 28 1 92
@@ -31,7 +32,7 @@ public:
 		if (i == 1) return;
 		else {
 			while (i != 1 && !check) {
-				if (this->data[i] > this->data[i / 2]) {
+				if (this->data[i] < this->data[i / 2]) {
 					T temp = this->data[i / 2];
 					this->data[i / 2] = this->data[i];
 					this->data[i] = temp;
@@ -82,6 +83,13 @@ public:
 		return temp;
 	}
 
+	void addElement(T num)
+	{
+		this->data.push_back(num);
+		this->size++;
+		siftup(this->size);
+	}
+
 	void heap_sort()
 	{
 		heap<T> h_temp{ *this };
@@ -89,6 +97,12 @@ public:
 			cout << h_temp.deletemin() << " ";
 		}
 		cout << endl;
+	}
+	
+	bool empty()
+	{
+		if (this->size == 0) return true;
+		else return false;
 	}
 
 	template<typename U>
@@ -105,6 +119,12 @@ public:
 		output << endl;
 		return output;
 	}
+
+	~heap()
+	{
+		this->data.~vector();
+		this->size = 0;
+	}
 };
 
 int main()
@@ -118,6 +138,12 @@ int main()
 	heap<int> h(data);
 	cout << h << endl;
 	h.heap_sort();
+	h.addElement(23);
 	cout << h << endl;
+
+	h.addElement(12);
+	cout << h << endl;
+
+	h.heap_sort();
 	return 0;
 }
