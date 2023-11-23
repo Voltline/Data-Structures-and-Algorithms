@@ -49,13 +49,13 @@ public:
 		bool check = false;
 		size_t t = 0;
 		while (i * 2 <= this->size && !check) {
-			if (this->data[i] > this->data[i * 2]) {
+			if (this->data[i] < this->data[i * 2]) {
 				t = i * 2;
 			}
 			else t = i;
 
 			if (i * 2 + 1 <= this->size) {
-				if (this->data[t] > this->data[i * 2 + 1]) {
+				if (this->data[t] < this->data[i * 2 + 1]) {
 					t = i * 2 + 1;
 				}
 			}
@@ -76,9 +76,7 @@ public:
 	T deletemin()
 	{
 		T temp = this->data[1];
-		
-		this->size--;
-		this->data[1] = this->data[this->size];
+		this->data[1] = this->data[this->size--];
 		siftdown(1);
 		return temp;
 	}
@@ -93,12 +91,26 @@ public:
 	void heap_sort()
 	{
 		heap<T> h_temp{ *this };
-		while (h_temp.size > 1) {
+		while (h_temp.size >= 1) {
 			cout << h_temp.deletemin() << " ";
 		}
 		cout << endl;
 	}
-	
+
+    void heap_select(int m)
+	{
+		if (m >= this->size-1) heap_sort();
+		else {
+			int cnt{ 0 };
+			heap<T> h_temp{ *this };
+			while (cnt < m) {
+				printf("%d ", h_temp.deletemin());
+				cnt++;
+			}
+			printf("\n");
+		}
+	}
+
 	bool empty()
 	{
 		if (this->size == 0) return true;
@@ -118,12 +130,6 @@ public:
 		}
 		output << endl;
 		return output;
-	}
-
-	~heap()
-	{
-		this->data.~vector();
-		this->size = 0;
 	}
 };
 
